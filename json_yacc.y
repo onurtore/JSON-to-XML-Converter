@@ -11,13 +11,9 @@ Onur Berk Töre Yeditepe University
 extern FILE *yyin;
 extern int linenum;
 %}
-%token OPEN_BRACES CLOSE_BRACES COLON  COMMA OPEN_BRACKETS CLOSE_BRACKETS STRING_LITERAL DOT NUMBER_LITERAL TRUE FALSE
+%token OPEN_BRACES CLOSE_BRACES COLON  COMMA OPEN_BRACKETS CLOSE_BRACKETS STRING_LITERAL DOT INTEGER DOUBLEVAL TRUE FALSE
 %%
 
-{
-	"i" : 5,
-	"word" : "This is a string"
-}
 
 object_notation:
      OPEN_BRACES statements CLOSE_BRACES
@@ -40,12 +36,44 @@ left_side:
 right_side:
     STRING_LITERAL
     |
-    NUMBER_LITERAL
+    INTEGER
+    |
+    DOUBLEVAL
+    |
+    array
+    |
+    boolean
+    ;
+
+array:
+    OPEN_BRACKETS array_elements CLOSE_BRACKETS
+    ;
+
+array_elements:
+    array_element COMMA array_elements
+    |
+    array_element
+    ;
+
+array_element:
+    INTEGER
+    |
+    DOUBLEVAL
+    |
+    STRING_LITERAL
+    |
+    boolean
+    ;
+
+boolean:
+    TRUE
+    |
+    FALSE
     ;
 
 %%
 void yyerror(char *s){
-	fprintf(stderr,"Error: %d\n",linenum);
+	fprintf(stderr,"Error on Line Number: %d\n",linenum);
 }
 int yywrap(){
 	return 1;

@@ -6,9 +6,7 @@ Notes
 
 Yapılacaklar
 
-1)Negative Numbers 
-2)Double
-3)Numbers with Exponential shown up
+1)Numbers with Exponential shown up
 */
 
 digit      [0-9]
@@ -25,11 +23,12 @@ letter     [A-Za-z]
 ","                             printf("%s:COMMA\n",yytext);
 "["                             printf("%s:OPEN BRACKETS\n",yytext);
 "]"                             printf("%s:CLOSE BRACKETS\n",yytext);
-\".*\"                          printf("%s:STRING LITERAL\n",yytext);
+\"(\\.|[^\\"])*\"               printf("%s:STRING LITERAL\n",yytext);
 "."                             printf("%s:DOT\n",yytext);
-{digit}({digit}|("."{digit}+))* printf("%s:NUMBER LITERAL\n",yytext);
-"true"                          printf("%s:TRUE",yytext);
-"false"                          printf("%s:FALSE",yytext);
+("+"|"-")?[0-9]*\.[0-9]+        printf("%s:DOUBLEVAL\n",yytext);
+("+"|"-")?[0-9]*                printf("%s:INTEGER\n",yytext);
+"true"                          printf("%s:TRUE\n",yytext);
+"false"                         printf("%s:FALSE\n",yytext);
 .|\n
 
 %%

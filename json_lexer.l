@@ -6,9 +6,8 @@ Notes
 
 Yapılacaklar
 
-1)Negative Numbers 
-2)Double
-3)Numbers with Exponential shown up
+1)Numbers with Exponential shown up
+2)ANSI C grammer String literal definition çalış
 */
 
 digit      [0-9]
@@ -29,9 +28,10 @@ int linenum=1;
 ","                             return COMMA;
 "["                             return OPEN_BRACKETS;
 "]"                             return CLOSE_BRACKETS;
-\".*\"                          return STRING_LITERAL;
+\"(\\.|[^\\"])*\"               return STRING_LITERAL;
 "."                             return DOT;
-{digit}({digit}|("."{digit}+))* return NUMBER_LITERAL;
+("+"|"-")?[0-9]*\.[0-9]+        return DOUBLEVAL;
+("+"|"-")?[0-9]*                return INTEGER;
 "true"                          return TRUE;
 "false"                         return FALSE;
 \n                              {linenum++;}

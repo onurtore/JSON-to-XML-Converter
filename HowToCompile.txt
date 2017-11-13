@@ -1,0 +1,3 @@
+yacc -d json_yacc.y
+lex json_lexer.l
+gcc lex.yy.c y.tab.c -lfl -o json_parse
