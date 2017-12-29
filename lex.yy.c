@@ -479,24 +479,13 @@ int yy_flex_debug = 0;
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
 #line 1 "json_lexer.l"
-/*
-JSON(Javascript Object Notation) Lexer
-Onur Berk Tore Yeditepe University Programming Language Course
-
-Notes 
-
-Yapılacaklar
-
-1)Numbers with Exponential shown up
-2)ANSI C grammer String literal definition çalış
-*/
-#line 16 "json_lexer.l"
+#line 5 "json_lexer.l"
 #include <stdio.h>
 #include <string.h>
 #include "y.tab.h"
 extern int yyval;
 int linenum=1;
-#line 500 "lex.yy.c"
+#line 489 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -683,11 +672,11 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 22 "json_lexer.l"
+#line 11 "json_lexer.l"
 
 
 
-#line 691 "lex.yy.c"
+#line 680 "lex.yy.c"
 
 	if ( !(yy_init) )
 		{
@@ -772,82 +761,82 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 25 "json_lexer.l"
-return OPEN_BRACES;
+#line 14 "json_lexer.l"
+{yylval.string = strdup(yytext); return OPEN_BRACES;}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 26 "json_lexer.l"
-return CLOSE_BRACES;
+#line 15 "json_lexer.l"
+{yylval.string = strdup(yytext); return CLOSE_BRACES;}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 27 "json_lexer.l"
-return COLON;
+#line 16 "json_lexer.l"
+{yylval.string = strdup(yytext); return COLON;}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 28 "json_lexer.l"
-return COMMA;
+#line 17 "json_lexer.l"
+{yylval.string = strdup(yytext); return COMMA;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 29 "json_lexer.l"
-return OPEN_BRACKETS;
+#line 18 "json_lexer.l"
+{yylval.string = strdup(yytext); return OPEN_BRACKETS;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 30 "json_lexer.l"
-return CLOSE_BRACKETS;
+#line 19 "json_lexer.l"
+{yylval.string = strdup(yytext); return CLOSE_BRACKETS;}
 	YY_BREAK
 case 7:
 /* rule 7 can match eol */
 YY_RULE_SETUP
-#line 31 "json_lexer.l"
-return STRING_LITERAL;
+#line 20 "json_lexer.l"
+{yylval.string = strdup(yytext); return STRING_LITERAL;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 32 "json_lexer.l"
-return DOT;
+#line 21 "json_lexer.l"
+{yylval.string = strdup(yytext); return DOT;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 33 "json_lexer.l"
-return DOUBLEVAL;
+#line 22 "json_lexer.l"
+{yylval.string = strdup(yytext); return DOUBLEVAL;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 34 "json_lexer.l"
-return INTEGER;
+#line 23 "json_lexer.l"
+{yylval.string = strdup(yytext); return INTEGER;}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 35 "json_lexer.l"
-return TRUE;
+#line 24 "json_lexer.l"
+{yylval.string = strdup(yytext); return TRUE;}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 36 "json_lexer.l"
-return FALSE;
+#line 25 "json_lexer.l"
+{yylval.string = strdup(yytext); return FALSE;}
 	YY_BREAK
 case 13:
 /* rule 13 can match eol */
 YY_RULE_SETUP
-#line 37 "json_lexer.l"
+#line 26 "json_lexer.l"
 {linenum++;}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 38 "json_lexer.l"
+#line 28 "json_lexer.l"
 
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 39 "json_lexer.l"
+#line 30 "json_lexer.l"
 ECHO;
 	YY_BREAK
-#line 851 "lex.yy.c"
+#line 840 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1845,8 +1834,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 39 "json_lexer.l"
-
-
+#line 30 "json_lexer.l"
 
 

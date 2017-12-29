@@ -67,10 +67,15 @@
 #include <stdio.h>
 #include <string.h>
 #include "y.tab.h"
+#include "myClass.h"
+void yyerror(char *);
+int yylex(void);
 extern FILE *yyin;
 extern int linenum;
+int leftSide_index = 0;
 
-#line 74 "y.tab.c" /* yacc.c:339  */
+
+#line 79 "y.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -135,7 +140,16 @@ extern int yydebug;
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef int YYSTYPE;
+typedef union YYSTYPE YYSTYPE;
+union YYSTYPE
+{
+#line 22 "json_yacc.y" /* yacc.c:355  */
+
+    int number;
+    char *string;
+
+#line 152 "y.tab.c" /* yacc.c:355  */
+};
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
 #endif
@@ -149,7 +163,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 153 "y.tab.c" /* yacc.c:358  */
+#line 167 "y.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -447,9 +461,9 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    19,    19,    23,    25,    29,    33,    37,    39,    41,
-      43,    45,    49,    53,    55,    59,    61,    63,    65,    69,
-      71
+       0,    34,    34,    45,    53,    61,    85,   115,   130,   135,
+     140,   145,   152,   160,   185,   193,   202,   212,   237,   248,
+     253
 };
 #endif
 
@@ -1232,8 +1246,273 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-      
-#line 1237 "y.tab.c" /* yacc.c:1646  */
+        case 2:
+#line 35 "json_yacc.y" /* yacc.c:1646  */
+    {
+        strcpy(program,"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+        strcat(program,"<object1>\n");
+        strcat(program,(yyvsp[-1].string));
+        strcat(program,"</object1>\n");
+        PrintToFile();
+    }
+#line 1259 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 3:
+#line 46 "json_yacc.y" /* yacc.c:1646  */
+    {
+        strcpy((yyval.string),(yyvsp[-2].string));
+        strcat((yyval.string),"\n");
+        strcat((yyval.string),(yyvsp[0].string));
+
+    }
+#line 1270 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 4:
+#line 54 "json_yacc.y" /* yacc.c:1646  */
+    {
+        strcpy((yyval.string),(yyvsp[0].string));
+        strcat((yyval.string),"\n");
+    }
+#line 1279 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 5:
+#line 62 "json_yacc.y" /* yacc.c:1646  */
+    {
+        strcpy((yyval.string),(yyvsp[-2].string));
+        strcat((yyval.string),(yyvsp[0].string));
+
+        char new_string[400];
+        new_string[0] = '<';
+        new_string[1] = '/';
+
+        int index = 1;
+        char * str = (yyvsp[-2].string);
+
+        while(str[index] != '>'){
+            new_string[index+1] = str[index];
+            index++;
+        }
+        new_string[index+1] = '>';
+        new_string[index+2] = '\0';
+    
+        strcat((yyval.string),new_string);
+    }
+#line 1304 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 6:
+#line 86 "json_yacc.y" /* yacc.c:1646  */
+    {
+        int i = 0;
+        for(; i < leftSide_index ; i++){
+            if(!strcmp(left_side_arr[i],(yyvsp[0].string))){
+                printf("%s,%s\n",left_side_arr[i],(yyvsp[0].string));
+                printf("Error:Defined Variable Used\n");
+                exit(1);
+            }
+        }
+
+        strcpy(left_side_arr[leftSide_index],(yyvsp[0].string));
+        leftSide_index++;
+
+        char new_string[400];
+        new_string[0] = '<';
+        char * str  = (yyvsp[0].string);
+        int index = 1;
+        while(str[index] != '\"')
+        {
+            new_string[index] = str[index];
+            index++; 
+        }
+        new_string[index] = '>';
+        new_string[++index] = '\0';
+        strcpy((yyval.string),new_string);
+    }
+#line 1335 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 7:
+#line 116 "json_yacc.y" /* yacc.c:1646  */
+    {
+        char new_string[400];
+        char * str = (yyvsp[0].string);
+        int index = 1;
+        while(str[index] != '\"'){
+            new_string[index-1] = str[index];
+            index++;
+        }
+        new_string[--index] = '\0';
+
+
+        strcpy((yyval.string),new_string);
+    }
+#line 1353 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 8:
+#line 131 "json_yacc.y" /* yacc.c:1646  */
+    {
+        strcpy((yyval.string),(yyvsp[0].string));
+    }
+#line 1361 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 9:
+#line 136 "json_yacc.y" /* yacc.c:1646  */
+    {
+        strcpy((yyval.string),(yyvsp[0].string));
+    }
+#line 1369 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 10:
+#line 141 "json_yacc.y" /* yacc.c:1646  */
+    {
+        strcpy((yyval.string),(yyvsp[0].string));
+    }
+#line 1377 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 11:
+#line 146 "json_yacc.y" /* yacc.c:1646  */
+    {
+        strcpy((yyval.string),(yyvsp[0].string));
+    }
+#line 1385 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 12:
+#line 153 "json_yacc.y" /* yacc.c:1646  */
+    {
+        strcpy((yyval.string),"\n");
+        strcat((yyval.string),(yyvsp[-1].string));
+    }
+#line 1394 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 13:
+#line 161 "json_yacc.y" /* yacc.c:1646  */
+    {
+        
+
+        int index  = 0;
+        char  * str = (yyvsp[-2].string);
+        int count = 0;
+        while(count != 2 ){
+            if(str[index] == '>'){
+                count++;
+            }
+            index++;
+        }
+
+
+        str[index] = '\0';        
+
+        strcpy((yyval.string),(yyvsp[-2].string));
+        
+        strcat((yyval.string),"\n");
+        
+        
+        strcat((yyval.string),(yyvsp[0].string));
+    }
+#line 1422 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 14:
+#line 186 "json_yacc.y" /* yacc.c:1646  */
+    {
+        strcpy((yyval.string),(yyvsp[0].string));
+        strcat((yyval.string),"\n\0");
+    }
+#line 1431 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 15:
+#line 194 "json_yacc.y" /* yacc.c:1646  */
+    {
+        char  new_string2[500];
+        strcpy(new_string2,"<integer>");
+        strcat(new_string2,(yyvsp[0].string));
+        strcat(new_string2,"</integer>");
+        strcpy((yyval.string),new_string2);
+    }
+#line 1443 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 16:
+#line 203 "json_yacc.y" /* yacc.c:1646  */
+    {
+        char  new_string2[500];
+        strcpy(new_string2,"<double>");
+        strcat(new_string2,(yyvsp[0].string));
+        strcat(new_string2,"</double>");
+        strcpy((yyval.string),new_string2);
+
+    }
+#line 1456 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 17:
+#line 213 "json_yacc.y" /* yacc.c:1646  */
+    {
+        char  new_string2[500];
+        strcpy(new_string2,"<string>");
+
+
+        char new_string[400];
+        char * str = (yyvsp[0].string);
+        int index = 1;
+        while(str[index] != '\"'){
+            new_string[index-1] = str[index];
+            index++;
+        }
+        new_string[index-1] = '\0';
+
+
+        strcat(new_string2,new_string);
+
+
+
+        strcat(new_string2,"</string>");
+        strcpy((yyval.string),new_string2);
+        char * str2 = (yyval.string);
+    }
+#line 1484 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 18:
+#line 238 "json_yacc.y" /* yacc.c:1646  */
+    {
+        char  new_string2[500];
+        strcpy(new_string2,"<boolean>");
+        strcat(new_string2,(yyvsp[0].string));
+        strcat(new_string2,"</boolean>");
+        strcpy((yyval.string),new_string2);
+    }
+#line 1496 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 19:
+#line 249 "json_yacc.y" /* yacc.c:1646  */
+    {
+        strcpy((yyval.string),"true");
+    }
+#line 1504 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 20:
+#line 254 "json_yacc.y" /* yacc.c:1646  */
+    {
+        strcpy((yyval.string),"false");
+    }
+#line 1512 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+
+#line 1516 "y.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1461,7 +1740,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 74 "json_yacc.y" /* yacc.c:1906  */
+#line 259 "json_yacc.y" /* yacc.c:1906  */
 
 void yyerror(char *s){
 	fprintf(stderr,"Error on Line Number: %d\n",linenum);

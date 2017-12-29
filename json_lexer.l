@@ -1,17 +1,6 @@
-/*
-JSON(Javascript Object Notation) Lexer
-Onur Berk Tore Yeditepe University Programming Language Course
-
-Notes 
-
-Yapılacaklar
-
-1)Numbers with Exponential shown up
-2)ANSI C grammer String literal definition çalış
-*/
-
 digit      [0-9]
 letter     [A-Za-z]
+
 %{
 #include <stdio.h>
 #include <string.h>
@@ -22,19 +11,20 @@ int linenum=1;
 %%
 
 
-"{"                             return OPEN_BRACES;
-"}"                             return CLOSE_BRACES;
-":"                             return COLON;
-","                             return COMMA;
-"["                             return OPEN_BRACKETS;
-"]"                             return CLOSE_BRACKETS;
-\"(\\.|[^\\"])*\"               return STRING_LITERAL;
-"."                             return DOT;
-("+"|"-")?[0-9]*\.[0-9]+        return DOUBLEVAL;
-("+"|"-")?[0-9]*                return INTEGER;
-"true"                          return TRUE;
-"false"                         return FALSE;
-\n                              {linenum++;}
-[ \t]+
-%%
+"{"                            {yylval.string = strdup(yytext); return OPEN_BRACES;}
+"}"                            {yylval.string = strdup(yytext); return CLOSE_BRACES;}
+":"                            {yylval.string = strdup(yytext); return COLON;}
+","                            {yylval.string = strdup(yytext); return COMMA;}
+"["                            {yylval.string = strdup(yytext); return OPEN_BRACKETS;}
+"]"                            {yylval.string = strdup(yytext); return CLOSE_BRACKETS;}
+\"(\\.|[^\\"])*\"              {yylval.string = strdup(yytext); return STRING_LITERAL;}
+"."                            {yylval.string = strdup(yytext); return DOT;}
+("+"|"-")?[0-9]*\.[0-9]+       {yylval.string = strdup(yytext); return DOUBLEVAL;}
+("+"|"-")?[0-9]*               {yylval.string = strdup(yytext); return INTEGER;}
+"true"                         {yylval.string = strdup(yytext); return TRUE;}
+"false"                        {yylval.string = strdup(yytext); return FALSE;}
+\n                             {linenum++;}
 
+[ \t]+
+
+%%
